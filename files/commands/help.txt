@@ -1,0 +1,11 @@
+Floyd es un bot creado por Randy Lynch (*RandArtZ*) el 5/11/2020, basado en el codigo fuente de RickyBot, para uso exclusivo del servidor oficial de RandArtZ. El nombre e imagen del bot esta basado en el personaje original creado por el mismo. ​​ 
+
+El prefijo para comandos es ``f?``
+
+**:sparkles: COMANDOS DISPONIBLES :sparkles:**
+``f?help`` - Muestra este cuadro.
+``f?ping`` - ¡Pong!
+``f?say`` - Repite lo que el usuario escriba.
+``f?avatar`` - Muestra el avatar del usuario mencionado.
+``f?userinfo`` - Muestra información del usuario.
+``f?serverinfo`` - Muestra información del servidor.

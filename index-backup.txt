@@ -1,0 +1,171 @@
+const Discord = require("discord.js");
+const fs = require("fs"); //this is a package that reads files
+
+const bot = new Discord.Client();
+client.commands = new Discord.Collection();
+
+bot.login("NzczNzk0NDk3NzQwOTMxMDkz.X6OaSA.hTJm96HmrTtXylRMJi5aIUqt57Y");
+
+// Web Server
+
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end('ok');
+});
+server.listen(3000);
+
+// Bot Activity Status
+
+bot.once("ready", () => {
+  console.log("I'm ready!");
+
+  bot.user.setPresence({
+    status: "available",
+    activity: {
+      name: "randartz.cf",
+      type: "STREAMING",
+      url: "https://www.twitch.tv/monstercat"
+    }
+  });
+});
+
+// Set the prefix
+
+const prefix = "?";
+bot.on("message", message => {
+  // Exit and stop if it's not there
+  if (!message.content.startsWith(prefix)) return;
+  // Check if content of message is "$ping"
+  if (message.content.toLowerCase().startsWith(prefix + "ping")) {
+    // Call .send() on the channel object the message was sent in
+    message.channel.send(":v:");
+  }
+});
+
+// Messages
+
+bot.on("message", message => {
+  // Prevent bot from responding to its own messages
+  if (message.author == bot.user) { return; }
+
+  // Send a message through the bot
+  if (message.content.toLowerCase().startsWith(prefix + "say")) {
+    message.delete();
+    message.channel.send(message.content.replace(prefix + "say", ""));
+  }
+
+});
+
+// Server Verification
+
+bot.on("guildMemberAdd", (member) => {
+    const channel = member.guild.channels.cache.get("845428793073729546");
+    const verifyEmbed = new Discord.MessageEmbed()
+
+      .setColor("RANDOM")
+      .setTitle("**¡Bienvenid@!**")
+      .setDescription("Por favor escribe la contraseña que se encuentra en <#782049672805220362> para poder entrar");
+
+    channel.send(`${member.user}`, verifyEmbed);
+});
+
+bot.on("message", message => {
+  // Prevent bot from responding to its own messages
+  if (message.author == bot.user) { return; }
+
+  // Correct password
+  if (message.content.toLowerCase() === "amogus" && message.channel.id === "845428793073729546") {
+    message.delete();
+    message.member.roles.add (message.guild.roles.cache.get("774018006044639294"));
+	}
+  
+  // Wrong password
+  else if (message.channel.id === "845428793073729546") {
+    message.delete();
+    const wrongEmbed = new Discord.MessageEmbed()
+    
+      .setColor("#FF0000")
+      .setTitle(":x: **Contraseña incorrecta :x:**")
+      .setDescription("Lee bien las reglas en <#782049672805220362> para encontrarla e intente de nuevo :expressionless:");
+
+    message.channel.send(wrongEmbed)
+    .then(msg => {
+      msg.delete({ timeout: 5000 });
+    })
+    .catch();
+  }
+});
+
+// Text file test
+
+bot.on("message", message => {
+  // Prevent bot from responding to its own messages
+  if (message.author == bot.user) { return; }
+
+  if (message.content.toLowerCase().startsWith(prefix + "ftest")) {
+     var textFile = fs.readFileSync("files/test.txt", {"encoding": "utf-8"});
+     message.channel.send(textFile);
+  }
+});
+
+// Admin-only commands
+
+bot.on("message", message => {
+  // Prevent bot from responding to its own messages
+  if (message.author == bot.user) { return; }
+
+  // Update server rules
+  if (message.content.toLowerCase().startsWith(prefix + "setrules") && message.member.hasPermission("ADMINISTRATOR")) {
+    message.delete();
+    var textFile = fs.readFileSync("files/info/rules.txt", {"encoding": "utf-8"});
+    const rulesEmbed = new Discord.MessageEmbed()
+      .setTitle("**:star: REGLAS DEL SERVIDOR :star:**")
+      .setDescription(textFile);
+    message.channel.send(rulesEmbed);
+  }
+  
+  // Update autoroles
+  if (message.content.toLowerCase().startsWith(prefix + "setroles 1") && message.member.hasPermission("ADMINISTRATOR")) {
+    message.delete();
+    var textFile = fs.readFileSync("files/info/roles1.txt", {"encoding": "utf-8"});
+    const roles1Embed = new Discord.MessageEmbed()
+      .setColor("#FF00FF")
+      .setTitle("**:rainbow: COLORES :rainbow:**")
+      .setDescription(textFile)
+      .setFooter("Por favor elegir un solo color, de otra forma, se te asignara de forma manual el ultimo color que hayas elegido.");
+    message.channel.send(roles1Embed);
+    }
+
+  if (message.content.toLowerCase().startsWith(prefix + "setroles 2") && message.member.hasPermission("ADMINISTRATOR")) {
+    message.delete();
+    var textFile = fs.readFileSync("files/info/roles2.txt", {"encoding": "utf-8"});
+    const roles2Embed = new Discord.MessageEmbed()
+      .setColor("#98FF98")
+      .setTitle("**:mega: AVISOS :mega:**")
+      .setDescription(textFile)
+      .setFooter("Roles que te hacen avisar de cualquier cosa o evento dentro del server.");
+    message.channel.send(roles2Embed);
+    }
+
+    if (message.content.toLowerCase().startsWith(prefix + "setroles 3") && message.member.hasPermission("ADMINISTRATOR")) {
+    message.delete();
+    var textFile = fs.readFileSync("files/info/roles3.txt", {"encoding": "utf-8"});
+    const roles3Embed = new Discord.MessageEmbed()
+      .setColor("#800080")
+      .setTitle("**:underage: VERIFICACIÓN DE EDAD :underage:**")
+      .setDescription(textFile);
+    message.channel.send(roles3Embed);
+    }
+
+    if (message.content.toLowerCase().startsWith(prefix + "setroles 4") && message.member.hasPermission("ADMINISTRATOR")) {
+    message.delete();
+    var textFile = fs.readFileSync("files/info/roles4.txt", {"encoding": "utf-8"});
+    const roles4Embed = new Discord.MessageEmbed()
+      .setColor("#50C2E5")
+      .setTitle("**:gem: RANDICALES :gem:**")
+      .setDescription(textFile)
+      .setFooter("Estos requisitos pueden cambiar con el tiempo.");
+    message.channel.send(roles4Embed);
+    }
+});
