@@ -143,11 +143,9 @@ client.on("message", message => {
   else if (message.channel.id === "845428793073729546") {
     message.delete();
     const wrongEmbed = new Discord.MessageEmbed()
-    
       .setColor("#FF0000")
       .setTitle(":x: **Contraseña incorrecta :x:**")
       .setDescription("Lee bien las reglas en <#782049672805220362> para encontrarla e intente de nuevo :expressionless:");
-
     message.channel.send(wrongEmbed)
     .then(msg => {
       msg.delete({ timeout: 5000 });

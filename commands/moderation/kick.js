@@ -6,19 +6,19 @@ module.exports = {
 	permissions: "KICK_MEMBERS",
 	execute(message, args) {
 		let user = message.mentions.members.first();
-    if(!user) {
+    if (!user) {
       let targetEmbed = new Discord.MessageEmbed()
         .setColor("#FF8C00")
         .setDescription("Por favor menciona al usuario que quieres expulsar.");
       return message.channel.send(targetEmbed);
     }
-    if(user.id === message.author.id) {
+    if (user.id === message.author.id) {
       let sameidEmbed = new Discord.MessageEmbed()
         .setColor("#FF8C00")
         .setDescription("¡No puedes expulsarte a ti mismo!");
       return message.channel.send(sameidEmbed);
     }
-    if(!args[1]) {
+    if (!args[1]) {
       let reasonEmbed = new Discord.MessageEmbed()
         .setColor("#FF8C00")
         .setDescription("Por favor escribe de la razón de la expulsión.");

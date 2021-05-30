@@ -6,19 +6,19 @@ module.exports = {
 	permissions: "BAN_MEMBERS",
 	execute(message, args) {
 		let user = message.mentions.members.first();
-    if(!user) {
+    if (!user) {
       let targetEmbed = new Discord.MessageEmbed()
         .setColor("#FF0000")
         .setDescription("Por favor menciona al usuario que quieres banear.");
       return message.channel.send(targetEmbed);
     }
-    if(user.id === message.author.id) {
+    if (user.id === message.author.id) {
       let sameidEmbed = new Discord.MessageEmbed()
         .setColor("#FF0000")
         .setDescription("¡No puedes banearte a ti mismo!");
       return message.channel.send(sameidEmbed);
     }
-    if(!args[1]) {
+    if (!args[1]) {
       let reasonEmbed = new Discord.MessageEmbed()
         .setColor("#FF0000")
         .setDescription("Por favor escribe de la razón del baneo.");
