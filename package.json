@@ -1,5 +1,5 @@
 {
-  "name": "floyd-bot",
+  "name": "floydbot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "config.json": "0.0.4",
-    "discord.js": "^12.4.1",
+    "discord.js": "^12.5.3",
     "moment": "^2.29.1",
     "ytdl-core": "^4.0.3"
   }
